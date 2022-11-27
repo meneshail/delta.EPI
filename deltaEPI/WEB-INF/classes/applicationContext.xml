@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+      xmlns:aop="http://www.springframework.org/schema/aop"      
+      xmlns:tx="http://www.springframework.org/schema/tx"       
+      xmlns:jdbc="http://www.springframework.org/schema/jdbc"       
+      xmlns:context="http://www.springframework.org/schema/context"      
+      xsi:schemaLocation="       
+      http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd       
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd       
+      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd       
+      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd       
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd" default-autowire="byName">     
+
+   <context:annotation-config></context:annotation-config>	
+
+	<!-- database -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName">
+		<value>com.mysql.cj.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<!---->
+			<value>MASKED</value>
+			<!---->
+		</property>
+		<property name="username">
+			<!---->
+			<value>MASKED</value>
+        </property>
+        <property name="password">
+			<!---->
+			<value>MASKED</value>
+        </property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis-config.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- Daos -->
+	<bean id="baseDao" abstract="true" class="cn.ac.big.hepi.dao.BaseDao" scope="prototype" />
+	<bean id="baseDaoImpl" class="cn.ac.big.hepi.dao.impl.BaseDaoImpl" scope="prototype">
+		<property name="sessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<!-- Services -->
+	<bean id="ibaseService" abstract="true" class="cn.ac.big.hepi.service.IBaseService" scope="prototype" />
+	<bean id="baseService" class="cn.ac.big.hepi.service.impl.BaseServiceImpl">
+		<property name="baseDao" ref="baseDaoImpl" />
+	</bean>
+	
+	<!-- Actions -->
+	<bean id="entryAction" class="cn.ac.big.hepi.action.EntryAction" scope="prototype">
+	</bean>
+
+	<bean id="entryResultAction" class="cn.ac.big.hepi.action.EntryResultAction" scope="prototype">
+	</bean>
+
+	<bean id="chromAction" class="cn.ac.big.hepi.action.ChromAction" scope="prototype">
+	</bean>
+
+	<bean id="entryProcessAction" class="cn.ac.big.hepi.action.EntryProcessAction" scope="prototype">
+	</bean>
+
+	<bean id="blastAction" class="cn.ac.big.hepi.action.BlastAction" scope="prototype">
+	</bean>
+
+	<bean id="exportFileAction" class="cn.ac.big.hepi.action.ExportAction" scope="prototype">
+	</bean>
+
+	<bean id="geneIdAction" class="cn.ac.big.hepi.action.GeneIdAction" scope="prototype">
+	</bean>
+
+
+	
+	
+</beans>

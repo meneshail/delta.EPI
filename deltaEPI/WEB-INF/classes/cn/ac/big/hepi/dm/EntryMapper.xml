@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ac.big.hepi.entry">
+
+	<resultMap id="EntryMap" type="cn.ac.big.hepi.po.EntryBean">
+		<id property="accessionVal" column="Accession_Val" />
+		<result property="title" column="title" />
+		<result property="speciesIndex" column="Organism_Index" />
+		<result property="speciesName" column="Organism" />
+		<result property="tissueType" column="Tissue" />
+		<result property="cellType" column="Cell_Type" />
+		<result property="cellLine" column="Cell_Line" />
+		<result property="cellLineIndex" column="Cell_Line_Index" />
+		<result property="enzymeName" column="Restriction_Enzyme" />
+		<result property="GSE" column="GSE"/>
+		<result property="GSM" column="GSM"/>
+	</resultMap>
+
+	<resultMap id="EntryInfoMap" type="cn.ac.big.hepi.po.EntryInfoBean">
+		<id property="accessionVal" column="Accession_Val" />
+		<result property="title" column="title" />
+		<result property="speciesIndex" column="Organism_Index" />
+		<result property="speciesName" column="Organism" />
+		<result property="tissueType" column="Tissue" />
+		<result property="cellType" column="Cell_Type" />
+		<result property="cellLine" column="Cell_Line" />
+		<result property="cellLineIndex" column="Cell_Line_Index" />
+		<result property="enzymeName" column="Restriction_Enzyme" />
+		<result property="GSE" column="GSE"/>
+		<result property="GSM" column="GSM"/>
+		<result property="growthProtocol" column="Growth_Protocol" />
+		<result property="treatmentProtocol" column="Treatment_Protocol"/>
+		<result property="extractionProtocol" column="Extraction_Protocol"/>
+		<result property="dataProcessing" column="Data_Processing"/>
+		<result property="condDetail" column="Condition_Detail"/>
+		<result property="validPairCount" column="Valid_Pair"/>
+	</resultMap>
+
+
+	<select id="selectAllSpecies" resultMap="EntryMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM
+		from accession_list
+		group by Organism
+		order by Organism
+	</select>
+
+	<select id="selectAllTissue" resultMap="EntryMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM
+		from accession_list
+		group by Tissue
+		order by Tissue
+	</select>
+
+	<select id="selectAllCellType" resultMap="EntryMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM
+		from accession_list
+		group by Cell_Type
+		order by Cell_Type
+	</select>
+
+	<select id="selectAllCellLine" resultMap="EntryMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM
+		from accession_list
+		group by Cell_Line
+		order by Cell_Line
+	</select>
+
+	<select id="conditionalTissue" parameterType="java.util.Map" resultMap="EntryMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM
+		from accession_list
+		where 1=1
+		and 5=5
+		<if test="speciesName != null">
+			and Organism = #{speciesName}
+		</if>
+		<if test="tissueType != null">
+			and Tissue = #{tissueType}
+		</if>
+		<if test="cellType != null">
+			and Cell_Type = #{cellType}
+		</if>
+		<if test="cellLine != null">
+			and Cell_Line = #{cellLine}
+		</if>
+		group by Tissue
+		order by Tissue
+	</select>
+
+	<select id="conditionalCellType" parameterType="java.util.Map" resultMap="EntryMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM
+		from accession_list
+		where 1=1
+		and 5=5
+		<if test="speciesName != null">
+			and Organism = #{speciesName}
+		</if>
+		<if test="tissueType != null">
+			and Tissue = #{tissueType}
+		</if>
+		<if test="cellType != null">
+			and Cell_Type = #{cellType}
+		</if>
+		<if test="cellLine != null">
+			and Cell_Line = #{cellLine}
+		</if>
+		group by Cell_Type
+		order by Cell_Type
+	</select>
+
+	<select id="conditionalCellLine" parameterType="java.util.Map" resultMap="EntryMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM
+		from accession_list
+		where 1=1
+		<if test="speciesName != null">
+			and Organism = #{speciesName}
+		</if>
+		<if test="tissueType != null">
+			and Tissue = #{tissueType}
+		</if>
+		<if test="cellType != null">
+			and Cell_Type = #{cellType}
+		</if>
+		<if test="cellLine != null">
+			and Cell_Line = #{cellLine}
+		</if>
+		group by Cell_Line
+		order by Cell_Line
+	</select>
+
+	<select id="getEntryResult" parameterType="java.util.Map" resultMap="EntryInfoMap">
+		select Accession_Val,title,Organism_Index,Organism,Tissue,Cell_Type,Cell_Line,Cell_Line_Index,Restriction_Enzyme,GSE,GSM,
+		Growth_Protocol,Treatment_Protocol,Extraction_Protocol,Data_Processing,Condition_Detail,Valid_Pair
+		from accession_list
+		where 1=1
+		<if test="speciesName != null">
+			and Organism = #{speciesName}
+		</if>
+		<if test="tissueType != null">
+			and Tissue = #{tissueType}
+		</if>
+		<if test="cellType != null">
+			and Cell_Type = #{cellType}
+		</if>
+		<if test="cellLine != null">
+			and Cell_Line = #{cellLine}
+		</if>
+		order by Valid_Pair DESC
+	</select>
+
+
+</mapper>

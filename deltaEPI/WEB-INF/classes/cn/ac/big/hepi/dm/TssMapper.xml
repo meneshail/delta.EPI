@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ac.big.hepi.chrom">
+
+	<resultMap id="TssMap" type="cn.ac.big.hepi.po.TssBean">
+		<id property="index" column="Index" />
+		<result property="entrezId" column="Entrez_ID" />
+		<result property="chrom" column="Chrom" />
+		<result property="tss" column="TSS" />
+		<result property="tssStart" column="TSS_Start" />
+		<result property="tssEnd" column="TSS_End" />
+	</resultMap>
+
+	<select id="getTssByEntrezId" parameterType="java.util.Map" resultMap="TssMap">
+		select Entrez_ID,Chrom,TSS,TSS_Start,TSS_End
+		from TSS_list
+		where Entrez_ID = #{entrezId}
+	</select>
+
+</mapper>

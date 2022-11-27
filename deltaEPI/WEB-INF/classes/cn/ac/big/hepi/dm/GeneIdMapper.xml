@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ac.big.hepi.chrom">
+
+	<resultMap id="GeneIdMap" type="cn.ac.big.hepi.po.GeneIdBean">
+		<id property="index" column="Index" />
+		<result property="entrezId" column="Entrez_ID" />
+		<result property="identifier" column="Identifier" />
+		<result property="database" column="Source_Database" />
+		<result property="speciesName" column="Organism" />
+		<result property="geneName" column="Gene_Name" />
+	</resultMap>
+
+	<select id="getEntrezId" parameterType="java.util.Map" resultMap="GeneIdMap">
+		select Entrez_ID,Identifier,Source_Database,Organism,Gene_Name
+		from gene_id_list
+		where Organism = #{speciesName}
+		and Identifier = #{identifier}
+	</select>
+
+</mapper>

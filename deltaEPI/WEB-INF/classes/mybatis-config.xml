@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	
+	<properties>
+		<property name="dialect" value="mysql" />
+	</properties>
+
+	<typeAliases>
+		<!-- common -->
+
+		<typeAlias alias="BlastResult" type="cn.ac.big.hepi.po.BlastResultBean" />
+		<typeAlias alias="Chrom" type="cn.ac.big.hepi.po.ChromBean" />
+		<typeAlias alias="Entry" type="cn.ac.big.hepi.po.EntryBean" />
+		<typeAlias alias="EntryInfo" type="cn.ac.big.hepi.po.EntryInfoBean" />
+		<typeAlias alias="GeneId" type="cn.ac.big.hepi.po.GeneIdBean" />
+		<typeAlias alias="GeneInfo" type="cn.ac.big.hepi.po.GeneInfoBean" />
+		<typeAlias alias="InteractionInfo" type="cn.ac.big.hepi.po.InteractionInfoBean" />
+		<typeAlias alias="SearchForm" type="cn.ac.big.hepi.po.SearchFormBean" />
+		<typeAlias alias="Track" type="cn.ac.big.hepi.po.TrackBean" />
+		<typeAlias alias="Tss" type="cn.ac.big.hepi.po.TssBean" />
+
+	
+	</typeAliases>
+	<plugins>
+		<plugin interceptor="cn.ac.big.hepi.interceptor.PaginationInterceptor"></plugin>
+	</plugins>
+	<mappers>
+		<!-- common -->
+
+		<mapper resource="cn/ac/big/hepi/dm/ChromMapper.xml"/>
+		<mapper resource="cn/ac/big/hepi/dm/EntryMapper.xml"/>
+		<mapper resource="cn/ac/big/hepi/dm/GeneIdMapper.xml"/>
+		<mapper resource="cn/ac/big/hepi/dm/GeneInfoMapper.xml"/>
+		<mapper resource="cn/ac/big/hepi/dm/TrackMapper.xml"/>
+		<mapper resource="cn/ac/big/hepi/dm/TssMapper.xml"/>
+
+
+
+	</mappers>
+	
+	
+</configuration>		
+			

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ac.big.hepi.info">
+
+	<resultMap id="GeneInfoMap" type="cn.ac.big.hepi.po.GeneInfoBean">
+		<result property="entrezId" column="Entrez_ID" />
+		<result property="geneName" column="Gene_Name" />
+		<result property="geneSymbol" column="Symbol" />
+
+		<result property="goBp" column="Go_BP" />
+		<result property="goCc" column="Go_CC" />
+		<result property="goMf" column="Go_MF" />
+
+
+		<result property="speciesName" column="Species" />
+
+	</resultMap>
+
+	<select id="getGeneInfo" parameterType="java.util.Map" resultMap="GeneInfoMap">
+		select Entrez_ID,Gene_Name,Symbol,Go_BP,Go_CC,Go_MF
+		from gene_info_list
+		where Entrez_ID = #{entrezId}
+	</select>
+
+</mapper>

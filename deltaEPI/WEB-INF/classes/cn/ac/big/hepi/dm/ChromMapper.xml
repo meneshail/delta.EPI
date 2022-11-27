@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ac.big.hepi.chrom">
+
+	<resultMap id="ChromMap" type="cn.ac.big.hepi.po.ChromBean">
+		<id property="index" column="val" />
+		<result property="speciesName" column="Genome" />
+		<result property="chrom" column="Chrom" />
+	</resultMap>
+
+	<select id="selectChromBySpecies" parameterType="java.util.Map" resultMap="ChromMap">
+		select val,Genome,Chrom
+		from genome_list
+		where Genome = #{speciesName}
+		order by val
+	</select>
+
+</mapper>

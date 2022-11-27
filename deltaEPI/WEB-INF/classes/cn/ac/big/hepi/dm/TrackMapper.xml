@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ac.big.hepi.track">
+
+	<resultMap id="TrackMap" type="cn.ac.big.hepi.po.TrackBean">
+		<id property="index" column="Index" />
+		<result property="name" column="Cell_Line" />
+		<result property="track" column="Track" />
+	</resultMap>
+
+	<select id="getTrackByName" parameterType="java.util.Map" resultMap="TrackMap">
+		select `Index`,Cell_Line,Track
+		from track_shown_list
+		where Cell_Line = #{name}
+	</select>
+
+</mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<!--指定struts.xml文件的根元素-->
+
+<struts>
+	<!-- <constant name="struts.custom.i18n.resources" value="globalMessage"/>>
+	<!- <constant name="struts.multipart.parser" value="requestParser"/>-->
+	<constant name="struts.objectFactory" value="spring"></constant>	
+	<package name="default" namespace="/" extends="struts-default">
+		
+	</package>
+	
+	
+	<package name="struts-shop" extends="struts-default">
+		<interceptors>
+	      <interceptor name="xssInterceptor" class="cn.ac.big.hepi.interceptor.XssInterceptor"></interceptor>
+	      <interceptor-stack name="myDefault">
+	        <interceptor-ref name="xssInterceptor"></interceptor-ref>
+	        <interceptor-ref name="defaultStack"></interceptor-ref>
+	      </interceptor-stack>
+	    </interceptors>
+	    <default-interceptor-ref name="myDefault"></default-interceptor-ref>
+	    <global-results>
+			 	<result name="error" >/page/contact.jsp</result>
+				<result name="403" >/page/403.jsp</result>
+				
+				<result name="400" >/page/contact.jsp</result>
+		</global-results> 
+	
+	</package>
+	
+	<!--3.14159-->
+	
+	<package name="search" namespace="/search" extends="struts-shop">
+
+		<action name="entrySearch" class="entryResultAction" method="execEntryResultFunc">
+			<result name="success">/page/result.jsp</result>
+		</action>
+		<action name="exportFile" class="exportFileAction" method="exportToFile"></action>
+<!--		<action name="locusSearch" class="locusSearch" method="execSearchFunc">
+			<result name="success">/pages/search/results.jsp</result>
+		</action>
+		-->
+
+	</package>
+	
+	
+	<package name="ajax" namespace="/ajax" extends="json-default">
+
+		<action name="getAllSpecies" class="entryAction" method="execGetAllSpeciesFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getAllTissue" class="entryAction" method="execGetAllTissueFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getAllCellType" class="entryAction" method="execGetAllCellTypeFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getAllCellLine" class="entryAction" method="execGetAllCellLineFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getConditionalTissue" class="entryAction" method="execGetConditionalTissueFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getConditionalCellType" class="entryAction" method="execGetConditionalCellTypeFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getConditionalCellLine" class="entryAction" method="execGetConditionalCellLineFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getChromList" class="chromAction" method="execGetChromListFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="entryProcessGetTrack" class="entryProcessAction" method="execEntryProcessGetTrackFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="entryProcessStepOne" class="entryProcessAction" method="execEntryProcessStepOneFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="entryProcessStepTwo" class="entryProcessAction" method="execEntryProcessStepTwoFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="blast" class="blastAction" method="execBlastFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="getEntrezId" class="geneIdAction" method="execGetEntrezIdFunc">
+			<result name="success" type="json"></result>
+		</action>
+
+<!--		<action name="getAllSpecies" class="speciesAction" method="execGetAllSpeciesFunc">
+			<result name="success"  type="json"></result>
+		</action>
+-->
+
+		
+	</package>
+	
+
+</struts>
